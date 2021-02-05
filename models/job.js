@@ -8,12 +8,7 @@ const { sqlForPartialUpdate } = require("../helpers/sql");
 /** Related functions for companies. */
 
 class Job {
-  /** Create a job (from data), update db, return new job data.
-   *
-   * data should be { title, salary, equity, companyHandle }
-   *
-   * Returns { id, title, salary, equity, companyHandle }
-   **/
+// Create a job from data and return details about the job
 
   static async create(data) {
     const result = await db.query(
@@ -34,15 +29,7 @@ class Job {
     return job;
   }
 
-  /** Find all jobs (optional filter on searchFilters).
-   *
-   * searchFilters (all optional):
-   * - minSalary
-   * - hasEquity (true returns only jobs with equity > 0, other values ignored)
-   * - title (will find case-insensitive, partial matches)
-   *
-   * Returns [{ id, title, salary, equity, companyHandle, companyName }, ...]
-   * */
+  // Find all jobs (optional filter on searchFilters).
 
   static async findAll({ minSalary, hasEquity, title } = {}) {
     let query = `SELECT j.id,
@@ -84,13 +71,8 @@ class Job {
     return jobsRes.rows;
   }
 
-  /** Given a job id, return data about job.
-   *
-   * Returns { id, title, salary, equity, companyHandle, company }
-   *   where company is { handle, name, description, numEmployees, logoUrl }
-   *
-   * Throws NotFoundError if not found.
-   **/
+  // Given a job id, return data about job.
+
 
   static async get(id) {
     const jobRes = await db.query(
@@ -155,10 +137,10 @@ class Job {
     return job;
   }
 
-  /** Delete given job from database; returns undefined.
-   *
-   * Throws NotFoundError if company not found.
-   **/
+  // Delete given job from database; returns undefined.
+   
+  //Throws NotFoundError if company not found.
+   
 
   static async remove(id) {
     const result = await db.query(
