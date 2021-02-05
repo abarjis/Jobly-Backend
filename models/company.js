@@ -7,14 +7,8 @@ const { sqlForPartialUpdate } = require("../helpers/sql");
 /** Related functions for companies. */
 
 class Company {
-  /** Create a company (from data), update db, return new company data.
-   *
-   * data should be { handle, name, description, numEmployees, logoUrl }
-   *
-   * Returns { handle, name, description, numEmployees, logoUrl }
-   *
-   * Throws BadRequestError if company already in database.
-   * */
+// Create a company and return a company details.
+// If company already exist return error.
 
   static async create({ handle, name, description, numEmployees, logoUrl }) {
     const duplicateCheck = await db.query(
@@ -44,15 +38,7 @@ class Company {
     return company;
   }
 
-  /** Find all companies (optional filter on searchFilters).
-   *
-   * searchFilters (all optional):
-   * - minEmployees
-   * - maxEmployees
-   * - name (will find case-insensitive, partial matches)
-   *
-   * Returns [{ handle, name, description, numEmployees, logoUrl }, ...]
-   * */
+// find all companies or filter (optional) by minEmployees, maxEmployees or name.
 
   static async findAll(searchFilters = {}) {
     let query = `SELECT handle,
