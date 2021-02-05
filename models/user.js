@@ -14,12 +14,7 @@ const { BCRYPT_WORK_FACTOR } = require("../config.js");
 /** Related functions for users. */
 
 class User {
-  /** authenticate user with username, password.
-   *
-   * Returns { username, first_name, last_name, email, is_admin }
-   *
-   * Throws UnauthorizedError is user not found or wrong password.
-   **/
+  // authenticate user with username, password. Error if not auth.
 
   static async authenticate(username, password) {
     // try to find the user first
@@ -49,12 +44,7 @@ class User {
     throw new UnauthorizedError("Invalid username/password");
   }
 
-  /** Register user with data.
-   *
-   * Returns { username, firstName, lastName, email, isAdmin }
-   *
-   * Throws BadRequestError on duplicates.
-   **/
+  // Register user with data. Error if duplicates.
 
   static async register(
       { username, password, firstName, lastName, email, isAdmin }) {
@@ -96,10 +86,8 @@ class User {
     return user;
   }
 
-  /** Find all users.
-   *
-   * Returns [{ username, first_name, last_name, email, is_admin }, ...]
-   **/
+  // Find all users. Returns [{ username, first_name, last_name, email, is_admin }, ...]
+   
 
   static async findAll() {
     const result = await db.query(
@@ -115,13 +103,8 @@ class User {
     return result.rows;
   }
 
-  /** Given a username, return data about user.
-   *
-   * Returns { username, first_name, last_name, is_admin, jobs }
-   *   where jobs is { id, title, company_handle, company_name, state }
-   *
-   * Throws NotFoundError if user not found.
-   **/
+  // Given a username, return data about user. Throws NotFoundError if user not found.
+   
 
   static async get(username) {
     const userRes = await db.query(
